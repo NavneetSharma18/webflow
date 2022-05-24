@@ -2387,52 +2387,55 @@ function lightbox_close() {
 }
 
   $(document).ready(function(){
+
      $("path[data-slide='1']").addClass('activepop');
+        
+        $('.slider-for').slick({
+         slidesToShow: 1,
+         slidesToScroll: 1,
+         arrows: false,
+         fade: true,
+         asNavFor: '.slider-nav'
+       });
+
+       $('.slider-nav').slick({
+         slidesToShow: 8,
+         slidesToScroll: 1,
+         asNavFor: '.slider-for',
+         dots: false,
+         focusOnSelect: true,
+         arrows: true,
+         prevArrow:"<button type='button' class='slick-prev pull-left left-btn custom-icon'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
+         nextArrow:"<button type='button' class='slick-next pull-right right-btn custom-icon'><i class='fa fa-angle-right' aria-hidden='true'></i></button>",
+         focusOnSelect: true,
+         responsive: [
+            {
+              breakpoint: 500,
+              settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              }
+            }
+          ]
+       });
+
+       $(".slick-prev, .slick-next, .main-common").click(function(){
+         var sld     = parseInt($('.slick-current').attr('data-slick-index'));
+         var slideno = sld + 1;
+         $("path").removeClass('activepop');
+         $("path[data-slide='"+slideno+"']").addClass('activepop');
+
+      })
+
+       $('a[data-slide], .gotoslide').click(function(e) {
+
+          $('.gotoslide').removeClass('activepop');
+          $(this).addClass('activepop');
+          e.preventDefault();
+          var slideno = $(this).data('slide');
+          $('.slider-nav').slick('slickGoTo', slideno - 1);
+       });
    })
 
-   $('.slider-for').slick({
-   slidesToShow: 1,
-   slidesToScroll: 1,
-   arrows: false,
-   fade: true,
-   asNavFor: '.slider-nav'
- });
-
- $('.slider-nav').slick({
-   slidesToShow: 8,
-   slidesToScroll: 1,
-   asNavFor: '.slider-for',
-   dots: false,
-   focusOnSelect: true,
-   arrows: true,
-   prevArrow:"<button type='button' class='slick-prev pull-left left-btn custom-icon'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
-   nextArrow:"<button type='button' class='slick-next pull-right right-btn custom-icon'><i class='fa fa-angle-right' aria-hidden='true'></i></button>",
-   focusOnSelect: true,
-   responsive: [
-      {
-        breakpoint: 500,
-        settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        }
-      }
-    ]
- });
-
- $(".slick-prev, .slick-next, .main-common").click(function(){
-   var sld     = parseInt($('.slick-current').attr('data-slick-index'));
-   var slideno = sld + 1;
-   $("path").removeClass('activepop');
-   $("path[data-slide='"+slideno+"']").addClass('activepop');
    
-})
-
- $('a[data-slide], .gotoslide').click(function(e) {
-    
-    $('.gotoslide').removeClass('activepop');
-    $(this).addClass('activepop');
-    e.preventDefault();
-    var slideno = $(this).data('slide');
-    $('.slider-nav').slick('slickGoTo', slideno - 1);
- });
 </script>
